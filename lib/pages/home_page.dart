@@ -20,6 +20,9 @@ class _HomePageState extends State<HomePage> {
   int _playerOneStatus = 50;
   int _playerTwoStatus = 50;
 
+  bool _haveWinner = false;
+  String? _winnerIdentity;
+
   @override
   Widget build(BuildContext context) {
     double _deviceWidth = MediaQuery.of(context).size.width;
@@ -62,6 +65,7 @@ class _HomePageState extends State<HomePage> {
             _gameAreaTwoHeight -= _heightConstant * 4;
             _gameAreaOneHeight += _heightConstant * 4;
             _updateStatus();
+            _checkWin();
           }
         });
       },
@@ -80,6 +84,7 @@ class _HomePageState extends State<HomePage> {
             _gameAreaOneHeight -= _heightConstant * 4;
             _gameAreaTwoHeight += _heightConstant * 4;
             _updateStatus();
+            _checkWin();
           }
         });
       },
@@ -205,5 +210,64 @@ class _HomePageState extends State<HomePage> {
   void _updateStatus() {
     _playerOneStatus = (_statusConstant * _gameAreaOneHeight).round();
     _playerTwoStatus = 100 - _playerOneStatus;
+  }
+  
+  void _checkWin() {
+    if(_playerOneStatus == 98 || _playerTwoStatus == 98){
+      if(_playerOneStatus == 98){
+        _haveWinner = true;
+        _winnerIdentity = 'amber';
+      } else {
+        _updateStatus();
+        _haveWinner = true;
+        _winnerIdentity = 'cyan';
+      }
+      _showWinnerDialog(context);
+    } else {
+      print('Playing ... ');
+    }
+  }
+  
+  void _showWinnerDialog(BuildContext context) {
+    showDialog(
+      context: context, 
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          elevation: 8,
+          title: const Text('Game Over!'),
+          content: SingleChildScrollView(
+            child: Text('🎉🥇Player $_winnerIdentity win!🏆🏆🏆'),
+          ),
+          actions: [
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  _isGameStarted = true;
+                  _gameAreaOneHeight = 355;
+                  _gameAreaTwoHeight = 355;
+                  Navigator.pop(context);
+                });
+              },
+              child: const Icon(
+                Icons.restart_alt,
+                size: 20,
+              ),
+            ),
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  _isGameStarted = false;
+                  _gameAreaOneHeight = 355;
+                  _gameAreaTwoHeight = 355;
+                  Navigator.pop(context);
+                });
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
