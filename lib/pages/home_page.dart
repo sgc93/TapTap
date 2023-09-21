@@ -61,7 +61,6 @@ class _HomePageState extends State<HomePage> {
 
   Widget _gameAreaOne(){
     return GestureDetector(
-      
       onTap: () {
         setState(() {
           if(isGameStarted){
@@ -108,11 +107,11 @@ class _HomePageState extends State<HomePage> {
   Widget _stopTextButton() {
     return TextButton(
       onPressed: (){
-        if(!isGameStarted){
-          isGameStarted = true;
+        if(isGameStarted){
+          isGameStarted = false;
         }
       },
-      child: const Text('Stop'),
+      child: const Text('Pouse'),
     );
   }
 
