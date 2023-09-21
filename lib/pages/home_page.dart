@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool _isGameStarted = false;
   bool _isGamePoused = false;
-  
+
   double _gameAreaOneHeight = 350;
   double _gameAreaTwoHeight = 350;
 
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if(isGameStarted){
+          if(_isGameStarted){
             _gameAreaTwoHeight -= 10;
             _gameAreaOneHeight += 10;
           }
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if(isGameStarted){
+          if(_isGameStarted){
             _gameAreaOneHeight -= 10;
             _gameAreaTwoHeight += 10;
           }
@@ -98,9 +98,11 @@ class _HomePageState extends State<HomePage> {
   Widget _startTextButton() {
     return TextButton(
       onPressed: (){
-        if(!_isGameStarted){
-          _isGameStarted = true;
-        }
+        setState(() {
+          if(!_isGameStarted){
+            _isGameStarted = true;
+          }
+        });
       },
       child: const Text('Start'),
     );
@@ -109,10 +111,12 @@ class _HomePageState extends State<HomePage> {
   Widget _stopTextButton() {
     return TextButton(
       onPressed: (){
-        if(_isGameStarted){
-          _isGameStarted = false;
-          _isGamePoused = true;
-        }
+        setState(() {
+          if(_isGameStarted){
+            _isGameStarted = false;
+            _isGamePoused = true;
+          }
+        });
       },
       child: const Text('Pouse'),
     );
@@ -121,9 +125,13 @@ class _HomePageState extends State<HomePage> {
   Widget _restartTextButon() {
     return TextButton(
       onPressed: (){
-        if(!_isGameStarted){
-          isGameStarted = true;
-        }
+        setState(() {
+          if(_isGameStarted || _isGamePoused){
+            _isGamePoused = false;
+            _gameAreaOneHeight = 350;
+            _gameAreaTwoHeight = 350;
+          }
+        });
       },
       child: const Text('Restart'),
     );
