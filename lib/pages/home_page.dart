@@ -78,6 +78,7 @@ class _HomePageState extends State<HomePage> {
           if(_isGameStarted){
             _gameAreaOneHeight -= 10;
             _gameAreaTwoHeight += 10;
+            _updateStatus();
           }
         });
       },
@@ -135,6 +136,7 @@ class _HomePageState extends State<HomePage> {
               _isGamePoused = false;
               _gameAreaOneHeight = 355;
               _gameAreaTwoHeight = 355;
+              _updateStatus();
             }
           });
         },
