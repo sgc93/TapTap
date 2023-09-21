@@ -8,7 +8,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final double _statusConstant = (10/71);
+  final double _statusConstant = 10/71;
+  final double _heightConstant = 71/10;
 
   bool _isGameStarted = false;
   bool _isGamePoused = false;
@@ -58,8 +59,8 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         setState(() {
           if(_isGameStarted){
-            _gameAreaTwoHeight -= 10;
-            _gameAreaOneHeight += 10;
+            _gameAreaTwoHeight -= _heightConstant * 4;
+            _gameAreaOneHeight += _heightConstant * 4;
             _updateStatus();
           }
         });
@@ -76,8 +77,8 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         setState(() {
           if(_isGameStarted){
-            _gameAreaOneHeight -= 10;
-            _gameAreaTwoHeight += 10;
+            _gameAreaOneHeight -= _heightConstant * 4;
+            _gameAreaTwoHeight += _heightConstant * 4;
             _updateStatus();
           }
         });
