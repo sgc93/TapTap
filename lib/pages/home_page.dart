@@ -8,6 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isGameStarted = false;
   double _gameAreaOneHeight = 350;
   double _gameAreaTwoHeight = 350;
 
@@ -25,9 +26,20 @@ class _HomePageState extends State<HomePage> {
           children: [
             _gameArea(),
             Align(
-              child: _startTextButton(),
-              alignment: Alignment.center,
-            )
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _startTextButton(),
+                    _stopTextButton(),
+                    _restartTextButon(),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -47,19 +59,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _startTextButton() {
-    return TextButton(
-      onPressed: (){},
-      child: const Text('start'),
-    );
-  }
-
   Widget _gameAreaOne(){
     return GestureDetector(
+      
       onTap: () {
         setState(() {
-          _gameAreaTwoHeight -= 10;
-          _gameAreaOneHeight += 10;
+          if(isGameStarted){
+            _gameAreaTwoHeight -= 10;
+            _gameAreaOneHeight += 10;
+          }
         });
       },
       child: Container(
@@ -73,14 +81,49 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () {
         setState(() {
-          _gameAreaOneHeight -= 10;
-          _gameAreaTwoHeight += 10;
+          if(isGameStarted){
+            _gameAreaOneHeight -= 10;
+            _gameAreaTwoHeight += 10;
+          }
         });
       },
       child: Container(
         height: _gameAreaTwoHeight,
         color: Colors.cyan,
       ),
+    );
+  }
+
+  Widget _startTextButton() {
+    return TextButton(
+      onPressed: (){
+        if(!isGameStarted){
+          isGameStarted = true;
+        }
+      },
+      child: const Text('Start'),
+    );
+  }
+
+  Widget _stopTextButton() {
+    return TextButton(
+      onPressed: (){
+        if(!isGameStarted){
+          isGameStarted = true;
+        }
+      },
+      child: const Text('Stop'),
+    );
+  }
+
+  Widget _restartTextButon() {
+    return TextButton(
+      onPressed: (){
+        if(!isGameStarted){
+          isGameStarted = true;
+        }
+      },
+      child: const Text('Restart'),
     );
   }
 }
