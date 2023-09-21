@@ -8,11 +8,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final double _statusConstant = (10/71);
+
   bool _isGameStarted = false;
   bool _isGamePoused = false;
 
-  double _gameAreaOneHeight = 350;
-  double _gameAreaTwoHeight = 350;
+  double _gameAreaOneHeight = 355;
+  double _gameAreaTwoHeight = 355;
+
+  int _playerOneStatus = 50;
+  int _playerTwoStatus = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -20,28 +25,15 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('TabTab'), // haya seba selasa semanyazetegn
+        title: const Text('TapTap'), // haya seba selasa semanyazetegn
       ),
       body: Container(
-        color:const Color.fromRGBO(31, 3, 31, 1.0),
+        color:const Color.fromRGBO(31, 31, 31, 1.0),
         child: Stack(
           children: [
             _gameArea(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    _startTextButton(),
-                    _stopTextButton(),
-                    _restartTextButon(),
-                  ],
-                ),
-              ),
-            ),
+            _bottomBtnContainer(),
+            _sidePercentContainer(),
           ],
         ),
       ),
@@ -68,6 +60,7 @@ class _HomePageState extends State<HomePage> {
           if(_isGameStarted){
             _gameAreaTwoHeight -= 10;
             _gameAreaOneHeight += 10;
+            _updateStatus();
           }
         });
       },
@@ -96,44 +89,118 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _startTextButton() {
-    return TextButton(
-      onPressed: (){
-        setState(() {
-          if(!_isGameStarted){
-            _isGameStarted = true;
-          }
-        });
-      },
-      child: const Text('Start'),
+    return Container(
+      color: Colors.white12,
+      width: 100,
+      child: TextButton(
+        onPressed: (){
+          setState(() {
+            if(!_isGameStarted){
+              _isGameStarted = true;
+            }
+          });
+        },
+        child: const Text('Start'),
+      )
     );
   }
 
   Widget _stopTextButton() {
-    return TextButton(
-      onPressed: (){
-        setState(() {
-          if(_isGameStarted){
-            _isGameStarted = false;
-            _isGamePoused = true;
-          }
-        });
-      },
-      child: const Text('Pouse'),
+    return Container(
+      color: Colors.white12,
+      width: 100,
+      child: TextButton(
+        onPressed: (){
+          setState(() {
+            if(_isGameStarted){
+              _isGameStarted = false;
+              _isGamePoused = true;
+            }
+          });
+        },
+        child: const Text('Pouse'),
+      ),
     );
   }
 
   Widget _restartTextButon() {
-    return TextButton(
-      onPressed: (){
-        setState(() {
-          if(_isGameStarted || _isGamePoused){
-            _isGamePoused = false;
-            _gameAreaOneHeight = 350;
-            _gameAreaTwoHeight = 350;
-          }
-        });
-      },
-      child: const Text('Restart'),
+    return Container(
+      color: Colors.white12,
+      width: 100,
+      child: TextButton(
+        onPressed: (){
+          setState(() {
+            if(_isGameStarted || _isGamePoused){
+              _isGameStarted = true;
+              _isGamePoused = false;
+              _gameAreaOneHeight = 355;
+              _gameAreaTwoHeight = 355;
+            }
+          });
+        },
+        child: const Text('Restart'),
+      ),
     );
+  }
+  
+  Widget _bottomBtnContainer() {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        margin: const EdgeInsets.all(12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _startTextButton(),
+            _stopTextButton(),
+            _restartTextButon(),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _sidePercentContainer() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        color: Colors.white,
+        height: 450,
+        width: 50,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _statusBoxOne(),
+            _statusBoxTwo(),
+          ],
+        ),
+      ),
+    );
+  }
+  
+  Widget _statusBoxTwo() {
+    return Container(
+      child: Text(
+        '$_playerTwoStatus%',
+      ),
+    );
+  }
+  
+  Widget _statusBoxOne() {
+    return Container(
+      child: Text(
+        '$_playerOneStatus%',
+      ),
+    );
+  }
+  
+  void _updateStatus() {
+    _playerOneStatus = (_statusConstant * _gameAreaOneHeight).round();
+    _playerTwoStatus = 100 - _playerOneStatus;
   }
 }
