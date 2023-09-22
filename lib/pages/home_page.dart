@@ -20,6 +20,9 @@ class _HomePageState extends State<HomePage> {
   int _playerOneStatus = 50;
   int _playerTwoStatus = 50;
 
+  int _playerOneNumTap = 0;
+  int _playerTwoNumTap = 0;
+
   String? _winnerIdentity;
 
   @override
@@ -59,6 +62,7 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         setState(() {
           if(_isGameStarted){
+            _playerOneNumTap++;
             _gameAreaTwoHeight -= _heightConstant * 4;
             _gameAreaOneHeight += _heightConstant * 4;
             _updateStatus();
@@ -78,6 +82,7 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         setState(() {
           if(_isGameStarted){
+            _playerTwoNumTap++;
             _gameAreaOneHeight -= _heightConstant * 4;
             _gameAreaTwoHeight += _heightConstant * 4;
             _updateStatus();
@@ -251,6 +256,7 @@ class _HomePageState extends State<HomePage> {
                   _isGameStarted = true;
                   _gameAreaOneHeight = 355;
                   _gameAreaTwoHeight = 355;
+                  _updateStatus();
                   Navigator.pop(context);
                 });
               },
@@ -265,6 +271,7 @@ class _HomePageState extends State<HomePage> {
                   _isGameStarted = false;
                   _gameAreaOneHeight = 355;
                   _gameAreaTwoHeight = 355;
+                  _updateStatus();
                   Navigator.pop(context);
                 });
               },
@@ -284,8 +291,9 @@ class _HomePageState extends State<HomePage> {
         return AlertDialog(
           backgroundColor: Colors.white,
           elevation: 8,
-          content: const SingleChildScrollView(
-            child: Text('Game Detail Status')
+          title: const Text('Game Status Detail'),
+          content: SingleChildScrollView(
+            child: _showGameDetail(),
           ),
           actions: [
             TextButton(
@@ -294,6 +302,7 @@ class _HomePageState extends State<HomePage> {
                   _isGameStarted = true;
                   _gameAreaOneHeight = 355;
                   _gameAreaTwoHeight = 355;
+                  _updateStatus();
                   Navigator.pop(context);
                 });
               }, 
@@ -305,14 +314,66 @@ class _HomePageState extends State<HomePage> {
                   _isGameStarted = false;
                   _gameAreaOneHeight = 355;
                   _gameAreaTwoHeight = 355;
+                  _updateStatus();
                   Navigator.pop(context);
                 });
-              }, 
+              },
               child: const Text('Ok'),
             ),
           ],
         );
       },
+    );
+  }
+  
+  Widget _showGameDetail() {
+    return Container(
+      margin: const EdgeInsets.all(10),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                height: 50,
+                color: Colors.amber,
+                child: const Center(child: Text('Player 1')),
+              ),
+              Column(
+                children: [
+                  Text('👉🏼 $_playerOneNumTap taps'),
+                  Text('👉🏼 $_playerOneNumTap taps'),
+                  Text('👉🏼 $_playerOneNumTap taps'),
+                ],
+              )
+            ],
+          ),
+          const SizedBox(height: 10,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                height: 50,
+                color: Colors.cyan,
+                child: const Center(child: Text('Player 2')),
+              ),
+              Column(
+                children: [
+                  Text('👉🏼 $_playerTwoNumTap taps'),
+                  Text('👉🏼 $_playerTwoNumTap taps'),
+                  Text('👉🏼 $_playerTwoNumTap taps'),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
