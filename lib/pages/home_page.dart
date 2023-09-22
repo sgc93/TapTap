@@ -8,8 +8,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final double _statusConstant = 10/71;
-  final double _heightConstant = 71/10;
+  final double _statusConstant = 10 / 71;
+  final double _heightConstant = 71 / 10;
 
   bool _isGameStarted = false;
   bool _isGamePoused = false;
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text('TapTap'), // haya seba selasa semanyazetegn
       ),
       body: Container(
-        color:const Color.fromRGBO(31, 31, 31, 1.0),
+        color: const Color.fromRGBO(31, 31, 31, 1.0),
         child: Stack(
           children: [
             _gameArea(),
@@ -43,25 +43,24 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
+
   Widget _gameArea() {
     return Container(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          _gameAreaOne(),
-          _gameAreaTwo(),
-        ]
-      ),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            _gameAreaOne(),
+            _gameAreaTwo(),
+          ]),
     );
   }
 
-  Widget _gameAreaOne(){
+  Widget _gameAreaOne() {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if(_isGameStarted){
+          if (_isGameStarted) {
             _playerOneNumTap++;
             _gameAreaTwoHeight -= _heightConstant * 4;
             _gameAreaOneHeight += _heightConstant * 4;
@@ -77,11 +76,11 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _gameAreaTwo(){
+  Widget _gameAreaTwo() {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if(_isGameStarted){
+          if (_isGameStarted) {
             _playerTwoNumTap++;
             _gameAreaOneHeight -= _heightConstant * 4;
             _gameAreaTwoHeight += _heightConstant * 4;
@@ -99,19 +98,18 @@ class _HomePageState extends State<HomePage> {
 
   Widget _startTextButton() {
     return Container(
-      color: Colors.white12,
-      width: 100,
-      child: TextButton(
-        onPressed: (){
-          setState(() {
-            if(!_isGameStarted){
-              _isGameStarted = true;
-            }
-          });
-        },
-        child: const Text('Start'),
-      )
-    );
+        color: Colors.white12,
+        width: 100,
+        child: TextButton(
+          onPressed: () {
+            setState(() {
+              if (!_isGameStarted) {
+                _isGameStarted = true;
+              }
+            });
+          },
+          child: const Text('Start'),
+        ));
   }
 
   Widget _stopTextButton() {
@@ -119,9 +117,9 @@ class _HomePageState extends State<HomePage> {
       color: Colors.white12,
       width: 100,
       child: TextButton(
-        onPressed: (){
+        onPressed: () {
           setState(() {
-            if(_isGameStarted){
+            if (_isGameStarted) {
               _isGameStarted = false;
               _isGamePoused = true;
             }
@@ -137,9 +135,9 @@ class _HomePageState extends State<HomePage> {
       color: Colors.white12,
       width: 100,
       child: TextButton(
-        onPressed: (){
+        onPressed: () {
           setState(() {
-            if(_isGameStarted || _isGamePoused){
+            if (_isGameStarted || _isGamePoused) {
               _isGameStarted = true;
               _isGamePoused = false;
               _gameAreaOneHeight = 355;
@@ -152,7 +150,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
+
   Widget _bottomBtnContainer() {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -171,7 +169,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
+
   Widget _sidePercentContainer() {
     return Align(
       alignment: Alignment.centerRight,
@@ -192,7 +190,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
+
   Widget _statusBoxTwo() {
     return Container(
       child: Text(
@@ -200,7 +198,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
+
   Widget _statusBoxOne() {
     return Container(
       child: Text(
@@ -208,15 +206,15 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-  
+
   void _updateStatus() {
     _playerOneStatus = (_statusConstant * _gameAreaOneHeight).round();
     _playerTwoStatus = 100 - _playerOneStatus;
   }
-  
+
   void _checkWin() {
-    if(_playerOneStatus == 98 || _playerTwoStatus == 98){
-      if(_playerOneStatus == 98){
+    if (_playerOneStatus == 98 || _playerTwoStatus == 98) {
+      if (_playerOneStatus == 98) {
         _winnerIdentity = 'amber';
       } else {
         _updateStatus();
@@ -227,7 +225,7 @@ class _HomePageState extends State<HomePage> {
       print('Playing ... ');
     }
   }
-  
+
   void _showWinnerDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -242,7 +240,7 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             TextButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   Navigator.pop(context);
                   _showGameDetailDialog(context);
@@ -251,7 +249,7 @@ class _HomePageState extends State<HomePage> {
               child: const Text('Detail'),
             ),
             TextButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   _isGameStarted = true;
                   _gameAreaOneHeight = 355;
@@ -266,7 +264,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             TextButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   _isGameStarted = false;
                   _gameAreaOneHeight = 355;
@@ -282,7 +280,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-  
+
   void _showGameDetailDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -297,7 +295,7 @@ class _HomePageState extends State<HomePage> {
           ),
           actions: [
             TextButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   _isGameStarted = true;
                   _gameAreaOneHeight = 355;
@@ -305,11 +303,11 @@ class _HomePageState extends State<HomePage> {
                   _updateStatus();
                   Navigator.pop(context);
                 });
-              }, 
+              },
               child: const Icon(Icons.restart_alt),
             ),
             TextButton(
-              onPressed: (){
+              onPressed: () {
                 setState(() {
                   _isGameStarted = false;
                   _gameAreaOneHeight = 355;
@@ -325,7 +323,7 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-  
+
   Widget _showGameDetail() {
     return Container(
       margin: const EdgeInsets.all(10),
@@ -351,7 +349,9 @@ class _HomePageState extends State<HomePage> {
               )
             ],
           ),
-          const SizedBox(height: 10,),
+          const SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.max,
