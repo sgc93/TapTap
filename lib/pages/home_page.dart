@@ -20,13 +20,10 @@ class _HomePageState extends State<HomePage> {
   int _playerOneStatus = 50;
   int _playerTwoStatus = 50;
 
-  bool _haveWinner = false;
   String? _winnerIdentity;
 
   @override
   Widget build(BuildContext context) {
-    double _deviceWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('TapTap'), // haya seba selasa semanyazetegn
@@ -215,11 +212,9 @@ class _HomePageState extends State<HomePage> {
   void _checkWin() {
     if(_playerOneStatus == 98 || _playerTwoStatus == 98){
       if(_playerOneStatus == 98){
-        _haveWinner = true;
         _winnerIdentity = 'amber';
       } else {
         _updateStatus();
-        _haveWinner = true;
         _winnerIdentity = 'cyan';
       }
       _showWinnerDialog(context);
@@ -230,7 +225,8 @@ class _HomePageState extends State<HomePage> {
   
   void _showWinnerDialog(BuildContext context) {
     showDialog(
-      context: context, 
+      context: context,
+      barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.white,
@@ -240,6 +236,15 @@ class _HomePageState extends State<HomePage> {
             child: Text('🎉🥇Player $_winnerIdentity win!🏆🏆🏆'),
           ),
           actions: [
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  Navigator.pop(context);
+                  _showGameDetailDialog(context);
+                });
+              },
+              child: const Text('Detail'),
+            ),
             TextButton(
               onPressed: (){
                 setState(() {
@@ -263,6 +268,46 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pop(context);
                 });
               },
+              child: const Text('Ok'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  
+  void _showGameDetailDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          elevation: 8,
+          content: const SingleChildScrollView(
+            child: Text('Game Detail Status')
+          ),
+          actions: [
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  _isGameStarted = true;
+                  _gameAreaOneHeight = 355;
+                  _gameAreaTwoHeight = 355;
+                  Navigator.pop(context);
+                });
+              }, 
+              child: const Icon(Icons.restart_alt),
+            ),
+            TextButton(
+              onPressed: (){
+                setState(() {
+                  _isGameStarted = false;
+                  _gameAreaOneHeight = 355;
+                  _gameAreaTwoHeight = 355;
+                  Navigator.pop(context);
+                });
+              }, 
               child: const Text('Ok'),
             ),
           ],
