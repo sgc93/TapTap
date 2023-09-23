@@ -28,11 +28,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         title: const Text('TapTap'), // haya seba selasa semanyazetegn
       ),
-      body: Container(
-        color: const Color.fromRGBO(31, 31, 31, 1.0),
+      body: SizedBox(
         child: Stack(
           children: [
             _bottomBtnContainer(),
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _gameArea() {
     return Container(
-      margin: const EdgeInsets.only(right: 10, top: 10, left: 10),
+      margin: const EdgeInsets.only(right: 70, top: 10, left: 10, bottom: 10),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         height: _gameAreaOneHeight,
-        color: Colors.amber,
+        color: Colors.black45,
       ),
     );
   }
@@ -96,7 +96,7 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         height: _gameAreaTwoHeight,
-        color: Colors.cyan,
+        color: Colors.blue[300],
       ),
     );
   }
@@ -384,17 +384,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   _getBoxDecoration() {
-    return BoxDecoration(boxShadow: [
-      BoxShadow(
-        color: Colors.grey.shade600,
-        offset: const Offset(5, 5),
-        spreadRadius: 9,
-      ),
-      BoxShadow(
-        color: Colors.grey.shade600,
-        offset: const Offset(-5, -5),
-        spreadRadius: 9,
-      )
-    ]);
+    return BoxDecoration(
+      color: Colors.grey[300],
+      borderRadius: BorderRadius.circular(20),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.shade600,
+          offset: const Offset(5, 5),
+          blurRadius: 8,
+        ),
+        const BoxShadow(
+          color: Colors.white,
+          offset: Offset(-5, -5),
+          blurRadius: 8,
+        ),
+      ],
+    );
   }
 }
