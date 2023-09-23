@@ -35,9 +35,13 @@ class _HomePageState extends State<HomePage> {
         color: const Color.fromRGBO(31, 31, 31, 1.0),
         child: Stack(
           children: [
-            _gameArea(),
             _bottomBtnContainer(),
-            _sidePercentContainer(),
+            Stack(
+              children: [
+                _gameArea(),
+                _sidePercentContainer(),
+              ],
+            )
           ],
         ),
       ),
@@ -46,6 +50,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _gameArea() {
     return Container(
+      margin: const EdgeInsets.only(right: 10, top: 10, left: 10),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -174,9 +179,9 @@ class _HomePageState extends State<HomePage> {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        margin: const EdgeInsets.only(right: 10),
-        color: Colors.white,
-        height: 450,
+        margin: const EdgeInsets.all(5),
+        // color: Colors.white,
+        height: 700,
         width: 50,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -193,6 +198,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _statusBoxTwo() {
     return Container(
+      margin: const EdgeInsets.only(bottom: 50),
       child: Text(
         '$_playerTwoStatus%',
       ),
@@ -375,5 +381,20 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  _getBoxDecoration() {
+    return BoxDecoration(boxShadow: [
+      BoxShadow(
+        color: Colors.grey.shade600,
+        offset: const Offset(5, 5),
+        spreadRadius: 9,
+      ),
+      BoxShadow(
+        color: Colors.grey.shade600,
+        offset: const Offset(-5, -5),
+        spreadRadius: 9,
+      )
+    ]);
   }
 }
