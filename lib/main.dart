@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tab_tab_game/pages/home_page.dart';
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 
@@ -14,6 +14,11 @@ class MyApp extends StatelessWidget {
       title: 'tab more to win',
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            color: Colors.white,
+          ),
+        ),
       ),
       home: const HomePage(),
     );
