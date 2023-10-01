@@ -122,7 +122,7 @@ class _GamePageState extends State<GamePage> {
           }
         });
       },
-      child: const Text('Start'),
+      child: _getText('START'),
     );
   }
 
@@ -136,7 +136,7 @@ class _GamePageState extends State<GamePage> {
           }
         });
       },
-      child: const Text('Pouse'),
+      child: _getText('POUSE'),
     );
   }
 
@@ -153,7 +153,18 @@ class _GamePageState extends State<GamePage> {
           }
         });
       },
-      child: const Text('Restart'),
+      child: _getText('RESTART'),
+    );
+  }
+
+  Widget _getText(text) {
+    return Text(
+      text,
+      style: const TextStyle(
+        color: Colors.white70,
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
@@ -416,7 +427,7 @@ class _GamePageState extends State<GamePage> {
       onPressed: () {
         Navigator.of(context).pop();
       },
-      child: const Text('Menu'),
+      child: _getText('MENU'),
     );
   }
 }
