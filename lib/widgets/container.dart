@@ -14,26 +14,28 @@ class MyContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       height: height,
       width: width,
       decoration: BoxDecoration(
-          color: Colors.grey[900],
-          borderRadius: BorderRadius.circular(100),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black,
-              offset: Offset(4, 4),
-              blurRadius: 18,
-              spreadRadius: 1,
-            ),
-            BoxShadow(
-              color: Colors.grey.shade800,
-              offset: Offset(-4, -4),
-              blurRadius: 18,
-              spreadRadius: 1,
-            ),
-          ]),
+        borderRadius: BorderRadius.circular(10),
+        // shape: BoxShape.circle,
+        color: Colors.grey[900],
+        boxShadow: [
+          const BoxShadow(
+            color: Colors.black,
+            offset: Offset(4, 4),
+            blurRadius: 5,
+            spreadRadius: 1,
+          ),
+          BoxShadow(
+            color: Colors.grey.shade800,
+            offset: const Offset(-4, -4),
+            blurRadius: 8,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
       child: child,
     );
   }
