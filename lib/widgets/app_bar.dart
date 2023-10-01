@@ -24,17 +24,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          MyContainer(
-            height: height * 0.7,
-            width: height * 0.7,
-            child: drawerDisplayerButton(context),
-          ),
+          drawerDisplayerButton(),
           titleColumn(),
-          MyContainer(
-            height: height * 0.7,
-            width: height * 0.7,
-            child: endDrawerDisplayerButton(),
-          ),
+          endDrawerDisplayerButton(),
         ],
       ),
     );
@@ -61,15 +53,18 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget drawerDisplayerButton(context) {
+  Widget drawerDisplayerButton() {
     return GestureDetector(
       onTap: () {
-        print('drawer displayed.');
         scaffoldKey.currentState!.openDrawer();
       },
-      child: const Icon(
-        Icons.menu,
-        color: Colors.white,
+      child: MyContainer(
+        height: height * 0.7,
+        width: height * 0.7,
+        child: const Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -79,9 +74,13 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       onTap: () {
         scaffoldKey.currentState!.openEndDrawer();
       },
-      child: const Icon(
-        Icons.abc,
-        color: Colors.white,
+      child: MyContainer(
+        height: height * 0.7,
+        width: height * 0.7,
+        child: const Icon(
+          Icons.abc,
+          color: Colors.white,
+        ),
       ),
     );
   }
