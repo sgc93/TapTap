@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tab_tab_game/pages/game_page.dart';
 import 'package:tab_tab_game/pages/home_page.dart';
 
 void main() {
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: const HomePage(),
+      routes: {
+        '/gamepage': (context) => const GamePage(),
+      },
     );
   }
 }
