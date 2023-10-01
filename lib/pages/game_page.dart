@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class GameArea extends StatefulWidget {
-  const GameArea({super.key});
+class GamePage extends StatefulWidget {
+  const GamePage({super.key});
 
   @override
-  State<GameArea> createState() => _GameAreaState();
+  State<GamePage> createState() => _GamePageState();
 }
 
-class _GameAreaState extends State<GameArea> {
+class _GamePageState extends State<GamePage> {
   final double _statusConstant = 10 / 71;
   final double _heightConstant = 71 / 10;
 
@@ -28,29 +28,24 @@ class _GameAreaState extends State<GameArea> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[300],
-      appBar: AppBar(
-        title: const Text('TapTap'),
-      ),
-      body: SizedBox(
-        child: Stack(
-          children: [
-            _bottomBtnContainer(),
-            Stack(
-              children: [
-                _gameArea(),
-                _sidePercentContainer(),
-              ],
-            )
-          ],
-        ),
+      backgroundColor: Colors.grey[900],
+      body: Stack(
+        children: [
+          _bottomBtnContainer(),
+          Stack(
+            children: [
+              _gameArea(),
+              _sidePercentContainer(),
+            ],
+          )
+        ],
       ),
     );
   }
 
   Widget _gameArea() {
     return Container(
-      margin: const EdgeInsets.only(right: 70, top: 10, left: 10, bottom: 10),
+      margin: const EdgeInsets.all(10),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -75,8 +70,14 @@ class _GameAreaState extends State<GameArea> {
         });
       },
       child: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(3, 169, 241, 1),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
         height: _gameAreaOneHeight,
-        color: Colors.black45,
       ),
     );
   }
@@ -95,8 +96,14 @@ class _GameAreaState extends State<GameArea> {
         });
       },
       child: Container(
+        decoration: const BoxDecoration(
+          color: Color.fromRGBO(241, 131, 3, 1),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          ),
+        ),
         height: _gameAreaTwoHeight,
-        color: Colors.blue[300],
       ),
     );
   }
