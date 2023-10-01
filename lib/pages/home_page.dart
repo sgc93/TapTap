@@ -28,50 +28,56 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: const MyDrawer(),
       endDrawer: const MyEndDrawer(),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  MyContainer(
-                    height: _height * 0.350,
-                    width: _width * 0.6,
-                    child: const Center(
-                      child: Text(
-                        'LEVEL',
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ), // level box
-                  MyContainer(
-                    height: _height * 0.350,
-                    width: _width * 0.6,
-                    child: const Center(
-                      child: Text('DURATION',
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    MyContainer(
+                      height: _height * 0.350,
+                      width: _width * 0.6,
+                      child: const Center(
+                        child: Text(
+                          'LEVEL',
                           style: TextStyle(
                             color: Colors.white,
-                          )),
-                    ),
-                  ), // dutation box
-                ],
-              ), // duration and lebel bar
-              MyContainer(
-                height: _height * 0.74,
-                width: _width * 0.2,
-                child: const Center(
-                  child: Text('SIDEBAR',
+                          ),
+                        ),
+                      ),
+                    ), // level box
+                    MyContainer(
+                      height: _height * 0.350,
+                      width: _width * 0.6,
+                      child: const Center(
+                        child: Text(
+                          'DURATION',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ), // dutation box
+                  ],
+                ), // duration and lebel bar
+                MyContainer(
+                  height: _height * 0.74,
+                  width: _width * 0.2,
+                  child: const Center(
+                    child: Text(
+                      'SIDEBAR',
                       style: TextStyle(
                         color: Colors.white,
-                      )),
+                      ),
+                    ),
+                  ),
                 ),
-              ), // side bar
-            ],
-          ),
-          navigatorButton(), // play btn
-        ],
+              ],
+            ),
+            navigatorButton(),
+          ],
+        ),
       ),
     );
   }
@@ -80,10 +86,9 @@ class _HomePageState extends State<HomePage> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed('/gamepage');
-        print('taped');
       },
       child: MyContainer(
-        height: _height * 0.1,
+        height: _height * 0.05,
         width: _width,
         child: const Center(
           child: Text(
