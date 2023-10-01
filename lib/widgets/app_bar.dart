@@ -4,8 +4,14 @@ import 'package:tab_tab_game/widgets/container.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double height;
   final double width;
+  final GlobalKey<ScaffoldState> scaffoldKey;
 
-  const MyAppBar({super.key, required this.height, required this.width});
+  const MyAppBar({
+    super.key,
+    required this.height,
+    required this.width,
+    required this.scaffoldKey,
+  });
 
   @override
   Size get preferredSize => Size(width, height);
@@ -21,7 +27,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           MyContainer(
             height: height * 0.7,
             width: height * 0.7,
-            child: drawerDisplayerButton(),
+            child: drawerDisplayerButton(context),
           ),
           titleColumn(),
           MyContainer(
@@ -55,9 +61,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget drawerDisplayerButton() {
+  Widget drawerDisplayerButton(context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        print('drawer displayed.');
+        scaffoldKey.currentState!.openDrawer();
+      },
       child: const Icon(
         Icons.menu,
         color: Colors.white,
@@ -67,7 +76,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   Widget endDrawerDisplayerButton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        scaffoldKey.currentState!.openEndDrawer();
+      },
       child: const Icon(
         Icons.abc,
         color: Colors.white,
