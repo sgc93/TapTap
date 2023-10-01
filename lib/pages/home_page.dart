@@ -70,19 +70,29 @@ class _HomePageState extends State<HomePage> {
               ), // side bar
             ],
           ),
-          MyContainer(
-            height: _height * 0.1,
-            width: _width,
-            child: const Center(
-              child: Text(
-                'PLAY',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ), // play btn
+          navigatorButton(), // play btn
         ],
+      ),
+    );
+  }
+
+  Widget navigatorButton() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushNamed('/gamepage');
+        print('taped');
+      },
+      child: MyContainer(
+        height: _height * 0.1,
+        width: _width,
+        child: const Center(
+          child: Text(
+            'PLAY',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
       ),
     );
   }
