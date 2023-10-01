@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     MyContainer(
-                      height: _height * 0.350,
+                      height: _height * 0.36,
                       width: _width * 0.6,
                       child: const Center(
                         child: Text(
@@ -46,9 +46,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                    ), // level box
+                    ),
                     MyContainer(
-                      height: _height * 0.350,
+                      height: _height * 0.36,
                       width: _width * 0.6,
                       child: const Center(
                         child: Text(
@@ -60,10 +60,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ), // dutation box
                   ],
-                ), // duration and lebel bar
+                ),
                 MyContainer(
-                  height: _height * 0.74,
-                  width: _width * 0.2,
+                  height: _height * 0.76,
+                  width: _width * 0.25,
                   child: const Center(
                     child: Text(
                       'SIDEBAR',
@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
         Navigator.of(context).pushNamed('/gamepage');
       },
       child: MyContainer(
-        height: _height * 0.05,
+        height: _height * 0.07,
         width: _width,
         child: const Center(
           child: Text(
