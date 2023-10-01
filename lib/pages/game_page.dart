@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tab_tab_game/widgets/container.dart';
 
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
@@ -8,14 +9,14 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> {
-  final double _statusConstant = 10 / 71;
-  final double _heightConstant = 71 / 10;
+  final double _statusConstant = 10 / 80;
+  final double _heightConstant = 80 / 10;
 
   bool _isGameStarted = false;
   bool _isGamePoused = false;
 
-  double _gameAreaOneHeight = 355;
-  double _gameAreaTwoHeight = 355;
+  double _gameAreaOneHeight = 400;
+  double _gameAreaTwoHeight = 400;
 
   int _playerOneStatus = 50;
   int _playerTwoStatus = 50;
@@ -29,15 +30,19 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      body: Stack(
+      body: Column(
         children: [
-          _bottomBtnContainer(),
           Stack(
             children: [
               _gameArea(),
               _sidePercentContainer(),
             ],
-          )
+          ),
+          MyContainer(
+            height: 31,
+            width: 500,
+            child: _bottomBtnContainer(),
+          ),
         ],
       ),
     );
@@ -109,77 +114,58 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget _startTextButton() {
-    return Container(
-      color: Colors.white12,
-      width: 100,
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            if (!_isGameStarted) {
-              _isGameStarted = true;
-            }
-          });
-        },
-        child: const Text('Start'),
-      ),
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          if (!_isGameStarted) {
+            _isGameStarted = true;
+          }
+        });
+      },
+      child: const Text('Start'),
     );
   }
 
   Widget _stopTextButton() {
-    return Container(
-      color: Colors.white12,
-      width: 100,
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            if (_isGameStarted) {
-              _isGameStarted = false;
-              _isGamePoused = true;
-            }
-          });
-        },
-        child: const Text('Pouse'),
-      ),
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          if (_isGameStarted) {
+            _isGameStarted = false;
+            _isGamePoused = true;
+          }
+        });
+      },
+      child: const Text('Pouse'),
     );
   }
 
   Widget _restartTextButon() {
-    return Container(
-      color: Colors.white12,
-      width: 100,
-      child: TextButton(
-        onPressed: () {
-          setState(() {
-            if (_isGameStarted || _isGamePoused) {
-              _isGameStarted = true;
-              _isGamePoused = false;
-              _gameAreaOneHeight = 355;
-              _gameAreaTwoHeight = 355;
-              _updateStatus();
-            }
-          });
-        },
-        child: const Text('Restart'),
-      ),
+    return TextButton(
+      onPressed: () {
+        setState(() {
+          if (_isGameStarted || _isGamePoused) {
+            _isGameStarted = true;
+            _isGamePoused = false;
+            _gameAreaOneHeight = 400;
+            _gameAreaTwoHeight = 400;
+            _updateStatus();
+          }
+        });
+      },
+      child: const Text('Restart'),
     );
   }
 
   Widget _bottomBtnContainer() {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        margin: const EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _startTextButton(),
-            _stopTextButton(),
-            _restartTextButon(),
-          ],
-        ),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _startTextButton(),
+        _stopTextButton(),
+        _restartTextButon(),
+        _goToMenuButon(),
+      ],
     );
   }
 
@@ -187,14 +173,11 @@ class _GamePageState extends State<GamePage> {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        margin: const EdgeInsets.all(5),
-        // color: Colors.white,
-        height: 700,
-        width: 50,
+        margin: const EdgeInsets.only(top: 40),
+        height: 740,
+        width: 100,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _statusBoxOne(),
             _statusBoxTwo(),
@@ -205,18 +188,29 @@ class _GamePageState extends State<GamePage> {
   }
 
   Widget _statusBoxTwo() {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 50),
-      child: Text(
+    return _statusContainer(
+      const Color.fromRGBO(241, 131, 3, 1),
+      Text(
         '$_playerTwoStatus%',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
 
   Widget _statusBoxOne() {
-    return Container(
-      child: Text(
+    return _statusContainer(
+      const Color.fromRGBO(3, 169, 241, 1),
+      Text(
         '$_playerOneStatus%',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -266,8 +260,8 @@ class _GamePageState extends State<GamePage> {
               onPressed: () {
                 setState(() {
                   _isGameStarted = true;
-                  _gameAreaOneHeight = 355;
-                  _gameAreaTwoHeight = 355;
+                  _gameAreaOneHeight = 400;
+                  _gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -281,8 +275,8 @@ class _GamePageState extends State<GamePage> {
               onPressed: () {
                 setState(() {
                   _isGameStarted = false;
-                  _gameAreaOneHeight = 355;
-                  _gameAreaTwoHeight = 355;
+                  _gameAreaOneHeight = 400;
+                  _gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -312,8 +306,8 @@ class _GamePageState extends State<GamePage> {
               onPressed: () {
                 setState(() {
                   _isGameStarted = true;
-                  _gameAreaOneHeight = 355;
-                  _gameAreaTwoHeight = 355;
+                  _gameAreaOneHeight = 400;
+                  _gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -324,8 +318,8 @@ class _GamePageState extends State<GamePage> {
               onPressed: () {
                 setState(() {
                   _isGameStarted = false;
-                  _gameAreaOneHeight = 355;
-                  _gameAreaTwoHeight = 355;
+                  _gameAreaOneHeight = 400;
+                  _gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -391,22 +385,38 @@ class _GamePageState extends State<GamePage> {
     );
   }
 
-  _getBoxDecoration() {
-    return BoxDecoration(
-      color: Colors.grey[300],
-      borderRadius: BorderRadius.circular(20),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.shade600,
-          offset: const Offset(5, 5),
-          blurRadius: 8,
-        ),
-        const BoxShadow(
-          color: Colors.white,
-          offset: Offset(-5, -5),
-          blurRadius: 8,
-        ),
-      ],
+  Widget _statusContainer(color, child) {
+    return Container(
+      height: 50,
+      width: 50,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade600,
+            offset: const Offset(5, 5),
+            blurRadius: 8,
+          ),
+          const BoxShadow(
+            color: Colors.white,
+            offset: Offset(-5, -5),
+            blurRadius: 8,
+          ),
+        ],
+      ),
+      child: Center(
+        child: child,
+      ),
+    );
+  }
+
+  Widget _goToMenuButon() {
+    return TextButton(
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+      child: const Text('Menu'),
     );
   }
 }
