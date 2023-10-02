@@ -34,18 +34,18 @@ class _LevelCardState extends State<LevelCard> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyContainer(
-              height: 60,
-              width: 60,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (_level > 1) {
-                      _level--;
-                    }
-                  });
-                },
-                child: const Center(
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (_level > 1) {
+                    _level--;
+                  }
+                });
+              },
+              child: const MyContainer(
+                height: 60,
+                width: 60,
+                child: Center(
                   child: Text(
                     '-',
                     style: TextStyle(
@@ -56,18 +56,18 @@ class _LevelCardState extends State<LevelCard> {
                 ),
               ),
             ),
-            MyContainer(
-              height: 60,
-              width: 60,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (_level < 4) {
-                      _level++;
-                    }
-                  });
-                },
-                child: const Center(
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (_level < 4) {
+                    _level++;
+                  }
+                });
+              },
+              child: const MyContainer(
+                height: 60,
+                width: 60,
+                child: Center(
                   child: Text(
                     '+',
                     style: TextStyle(
