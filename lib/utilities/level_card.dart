@@ -18,7 +18,7 @@ class _LevelCardState extends State<LevelCard> {
         const Text(
           'LEVEL',
           style: TextStyle(
-            color: Colors.white,
+            color: Color.fromRGBO(3, 169, 241, 1),
             fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
@@ -45,11 +45,12 @@ class _LevelCardState extends State<LevelCard> {
               child: const MyContainer(
                 height: 60,
                 width: 60,
+                isCircle: false,
                 child: Center(
                   child: Text(
                     '-',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color.fromRGBO(3, 169, 241, 1),
                       fontSize: 50,
                     ),
                   ),
@@ -67,11 +68,12 @@ class _LevelCardState extends State<LevelCard> {
               child: const MyContainer(
                 height: 60,
                 width: 60,
+                isCircle: false,
                 child: Center(
                   child: Text(
                     '+',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color.fromRGBO(3, 169, 241, 1),
                       fontSize: 50,
                     ),
                   ),
