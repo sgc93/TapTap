@@ -9,7 +9,7 @@ class LevelCard extends StatefulWidget {
 }
 
 class _LevelCardState extends State<LevelCard> {
-  final int _level = 1;
+  int _level = 1;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -38,7 +38,13 @@ class _LevelCardState extends State<LevelCard> {
               height: 60,
               width: 60,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    if (_level > 1) {
+                      _level--;
+                    }
+                  });
+                },
                 child: const Center(
                   child: Text(
                     '-',
@@ -54,7 +60,13 @@ class _LevelCardState extends State<LevelCard> {
               height: 60,
               width: 60,
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    if (_level < 4) {
+                      _level++;
+                    }
+                  });
+                },
                 child: const Center(
                   child: Text(
                     '+',
