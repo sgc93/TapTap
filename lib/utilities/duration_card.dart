@@ -18,7 +18,7 @@ class _DurationCardState extends State<DurationCard> {
         const Text(
           'DURATION',
           style: TextStyle(
-            color: Colors.white,
+            color: Color.fromRGBO(241, 131, 3, 1),
             fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
@@ -45,11 +45,12 @@ class _DurationCardState extends State<DurationCard> {
               child: const MyContainer(
                 height: 60,
                 width: 60,
+                isCircle: false,
                 child: Center(
                   child: Text(
                     '-',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color.fromRGBO(241, 131, 3, 1),
                       fontSize: 50,
                     ),
                   ),
@@ -59,7 +60,7 @@ class _DurationCardState extends State<DurationCard> {
             const Text(
               'seconds',
               style: TextStyle(
-                color: Colors.white,
+                color: Color.fromRGBO(241, 131, 3, 1),
                 fontSize: 16,
               ),
             ),
@@ -74,11 +75,12 @@ class _DurationCardState extends State<DurationCard> {
               child: const MyContainer(
                 height: 60,
                 width: 60,
+                isCircle: false,
                 child: Center(
                   child: Text(
                     '+',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color.fromRGBO(241, 131, 3, 1),
                       fontSize: 50,
                     ),
                   ),
