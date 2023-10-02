@@ -59,8 +59,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         scaffoldKey.currentState!.openDrawer();
       },
       child: MyContainer(
-        height: height * 0.7,
-        width: height * 0.7,
+        height: height * 0.6,
+        width: height * 0.6,
+        isCircle: false,
         child: const Icon(
           Icons.menu,
           color: Colors.white,
@@ -75,8 +76,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         scaffoldKey.currentState!.openEndDrawer();
       },
       child: MyContainer(
-        height: height * 0.7,
-        width: height * 0.7,
+        height: height * 0.6,
+        width: height * 0.6,
+        isCircle: false,
         child: const Icon(
           Icons.abc,
           color: Colors.white,
