@@ -38,19 +38,19 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     MyContainer(
-                      height: _height * 0.36,
+                      height: _height * 0.38,
                       width: _width * 0.6,
                       child: const LevelCard(),
                     ),
                     MyContainer(
-                      height: _height * 0.36,
+                      height: _height * 0.38,
                       width: _width * 0.6,
                       child: const DurationCard(),
                     ), // dutation box
                   ],
                 ),
                 MyContainer(
-                  height: _height * 0.76,
+                  height: _height * 0.8,
                   width: _width * 0.25,
                   child: const Center(
                     child: Text(
