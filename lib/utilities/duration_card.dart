@@ -34,18 +34,18 @@ class _DurationCardState extends State<DurationCard> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            MyContainer(
-              height: 60,
-              width: 60,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (_duration > 2) {
-                      _duration--;
-                    }
-                  });
-                },
-                child: const Center(
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (_duration > 1) {
+                    _duration--;
+                  }
+                });
+              },
+              child: const MyContainer(
+                height: 60,
+                width: 60,
+                child: Center(
                   child: Text(
                     '-',
                     style: TextStyle(
@@ -56,18 +56,25 @@ class _DurationCardState extends State<DurationCard> {
                 ),
               ),
             ),
-            MyContainer(
-              height: 60,
-              width: 60,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    if (_duration < 60) {
-                      _duration++;
-                    }
-                  });
-                },
-                child: const Center(
+            const Text(
+              'seconds',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  if (_duration < 60) {
+                    _duration++;
+                  }
+                });
+              },
+              child: const MyContainer(
+                height: 60,
+                width: 60,
+                child: Center(
                   child: Text(
                     '+',
                     style: TextStyle(
