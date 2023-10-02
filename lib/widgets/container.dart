@@ -4,11 +4,13 @@ class MyContainer extends StatelessWidget {
   final double height;
   final double width;
   final Widget child;
+  final bool isCircle;
   const MyContainer({
     super.key,
     required this.height,
     required this.width,
     required this.child,
+    required this.isCircle,
   });
 
   @override
@@ -18,8 +20,8 @@ class MyContainer extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        // shape: BoxShape.circle,
+        borderRadius:
+            isCircle ? BorderRadius.circular(100) : BorderRadius.circular(20),
         color: Colors.grey[900],
         boxShadow: [
           const BoxShadow(
