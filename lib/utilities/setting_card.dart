@@ -10,6 +10,16 @@ class SettingsCard extends StatefulWidget {
 class _SettingsCardState extends State<SettingsCard> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ListView(
+      children: [
+        GestureDetector(
+          child: const ListTile(
+            title: Text(
+              'Dark Mode',
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
