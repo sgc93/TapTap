@@ -3,6 +3,7 @@ import 'package:tab_tab_game/pages/drawer_page.dart';
 import 'package:tab_tab_game/pages/end_rawer_page.dart';
 import 'package:tab_tab_game/utilities/duration_card.dart';
 import 'package:tab_tab_game/utilities/level_card.dart';
+import 'package:tab_tab_game/utilities/setting_card.dart';
 import 'package:tab_tab_game/widgets/app_bar.dart';
 import 'package:tab_tab_game/widgets/container.dart';
 
@@ -38,28 +39,24 @@ class _HomePageState extends State<HomePage> {
                 Column(
                   children: [
                     MyContainer(
-                      height: _height * 0.38,
+                      height: _height * 0.36,
                       width: _width * 0.6,
+                      isCircle: false,
                       child: const LevelCard(),
                     ),
                     MyContainer(
-                      height: _height * 0.38,
+                      height: _height * 0.36,
                       width: _width * 0.6,
+                      isCircle: false,
                       child: const DurationCard(),
                     ), // dutation box
                   ],
                 ),
                 MyContainer(
-                  height: _height * 0.8,
+                  height: _height * 0.75,
                   width: _width * 0.25,
-                  child: const Center(
-                    child: Text(
-                      'SIDEBAR',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                  isCircle: false,
+                  child: const SettingsCard(),
                 ),
               ],
             ),
@@ -78,6 +75,7 @@ class _HomePageState extends State<HomePage> {
       child: MyContainer(
         height: _height * 0.07,
         width: _width,
+        isCircle: false,
         child: const Center(
           child: Text(
             'PLAY',
