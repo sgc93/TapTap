@@ -24,7 +24,8 @@ class _GamePageState extends State<GamePage> {
   int _playerOneNumTap = 0;
   int _playerTwoNumTap = 0;
 
-  String? _winnerIdentity;
+  bool _isPlayerOneWin = false;
+  bool _isPlayerTwoWin = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class _GamePageState extends State<GamePage> {
           MyContainer(
             height: 31,
             width: 500,
+            isCircle: false,
             child: _bottomBtnContainer(),
           ),
         ],
@@ -234,10 +236,12 @@ class _GamePageState extends State<GamePage> {
   void _checkWin() {
     if (_playerOneStatus == 98 || _playerTwoStatus == 98) {
       if (_playerOneStatus == 98) {
-        _winnerIdentity = 'amber';
+        _isPlayerOneWin = true;
+        _isPlayerTwoWin = false;
       } else {
         _updateStatus();
-        _winnerIdentity = 'cyan';
+        _isPlayerTwoWin = true;
+        _isPlayerOneWin = false;
       }
       _showWinnerDialog(context);
     } else {
@@ -251,11 +255,27 @@ class _GamePageState extends State<GamePage> {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey[900],
           elevation: 8,
-          title: const Text('Game Over!'),
+          title: Text(
+            'Game Over!',
+            style: TextStyle(
+              color: _isPlayerOneWin
+                  ? const Color.fromRGBO(3, 169, 241, 1)
+                  : const Color.fromRGBO(241, 131, 3, 1),
+            ),
+          ),
           content: SingleChildScrollView(
-            child: Text('🎉🥇Player $_winnerIdentity win!🏆🏆🏆'),
+            child: Text(
+              _isPlayerOneWin
+                  ? '🎉🥇Player One win!🏆🏆🏆'
+                  : '🎉🥇Player Two win!🏆🏆🏆',
+              style: TextStyle(
+                color: _isPlayerOneWin
+                    ? const Color.fromRGBO(3, 169, 241, 0.7)
+                    : const Color.fromRGBO(241, 131, 3, 0.7),
+              ),
+            ),
           ),
           actions: [
             TextButton(
@@ -306,9 +326,14 @@ class _GamePageState extends State<GamePage> {
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.grey[900],
           elevation: 8,
-          title: const Text('Game Status Detail'),
+          title: const Text(
+            'Game Status Detail',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
           content: SingleChildScrollView(
             child: _showGameDetail(),
           ),
@@ -356,8 +381,16 @@ class _GamePageState extends State<GamePage> {
               Container(
                 padding: const EdgeInsets.all(10),
                 height: 50,
-                color: Colors.amber,
-                child: const Center(child: Text('Player 1')),
+                color: const Color.fromRGBO(3, 169, 241, 0.7),
+                child: const Center(
+                  child: Text(
+                    'Player 1',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
               ),
               Column(
                 children: [
@@ -379,8 +412,16 @@ class _GamePageState extends State<GamePage> {
               Container(
                 padding: const EdgeInsets.all(10),
                 height: 50,
-                color: Colors.cyan,
-                child: const Center(child: Text('Player 2')),
+                color: const Color.fromRGBO(241, 131, 3, 0.7),
+                child: const Center(
+                  child: Text(
+                    'Player 2',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
               ),
               Column(
                 children: [
