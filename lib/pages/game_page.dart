@@ -20,6 +20,7 @@ class _GamePageState extends State<GamePage> {
 
   int _playerOneStatus = 50;
   int _playerTwoStatus = 50;
+  int _duration = 30;
 
   int _playerOneNumTap = 0;
   int _playerTwoNumTap = 0;
@@ -193,6 +194,7 @@ class _GamePageState extends State<GamePage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _statusBoxOne(),
+            _durationStatus(),
             _statusBoxTwo(),
           ],
         ),
@@ -205,6 +207,20 @@ class _GamePageState extends State<GamePage> {
       const Color.fromRGBO(241, 131, 3, 1),
       Text(
         '$_playerTwoStatus%',
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  Widget _durationStatus() {
+    return _statusContainer(
+      Colors.grey[900],
+      Text(
+        '$_duration',
         style: const TextStyle(
           color: Colors.white,
           fontSize: 20,
