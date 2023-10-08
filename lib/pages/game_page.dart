@@ -12,6 +12,8 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with Settings {
+  var myTimer;
+
   @override
   void initState() {
     super.initState();
@@ -19,7 +21,8 @@ class _GamePageState extends State<GamePage> with Settings {
 
   _countingDown() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (isPlayerOneWin || isPlayerTwoWin || isGamePoused) {
+      myTimer = timer;
+      if (isPlayerOneWin || isPlayerTwoWin || isGamePoused || isRestarted) {
         timer.cancel();
       } else if (duration > 0 && !isPlayerOneWin && !isPlayerTwoWin) {
         setState(() {
@@ -160,10 +163,11 @@ class _GamePageState extends State<GamePage> with Settings {
         setState(() {
           if (isGameStarted || isGamePoused) {
             isGameStarted = true;
-            isGamePoused = false;
             gameAreaOneHeight = 400;
             gameAreaTwoHeight = 400;
+            isGamePoused = false;
             _updateStatus();
+            myTimer.cancel();
             setDuration(newDuration: 20);
             _countingDown();
           }
@@ -518,6 +522,7 @@ class _GamePageState extends State<GamePage> with Settings {
   Widget _goToMenuButon() {
     return TextButton(
       onPressed: () {
+        myTimer.cancel();
         Navigator.of(context).pop();
       },
       child: _getText('MENU'),
