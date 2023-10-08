@@ -1,11 +1,6 @@
-class Settings {
+mixin Settings {
   int level = 1;
-  int duration = 30;
-
-  Settings({
-    required this.level,
-    required this.duration,
-  });
+  int duration = 20;
 
   void setLevel({required newLevel}) {
     level = newLevel;
