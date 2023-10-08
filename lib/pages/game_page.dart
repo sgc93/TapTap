@@ -19,15 +19,18 @@ class _GamePageState extends State<GamePage> with Settings {
 
   _countingDown() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (duration > 0) {
+      if (isPlayerOneWin || isPlayerTwoWin) {
+        timer.cancel();
+      } else if (duration > 0 && !isPlayerOneWin && !isPlayerTwoWin) {
         setState(() {
           duration--;
         });
-      } else if (duration == 0) {
+      } else if (duration == 0 && !isPlayerOneWin && !isPlayerTwoWin) {
         setState(() {
           isGameStarted = false;
           isgameOver = true;
-          duration = 20;
+          setDuration(newDuration: 20);
+          _showGameAlert(context);
         });
         timer.cancel();
       }
@@ -266,13 +269,13 @@ class _GamePageState extends State<GamePage> with Settings {
         isPlayerTwoWin = true;
         isPlayerOneWin = false;
       }
-      _showWinnerDialog(context);
+      _showGameAlert(context);
     } else {
       print('Playing ... ');
     }
   }
 
-  void _showWinnerDialog(BuildContext context) {
+  void _showGameAlert(BuildContext context) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -283,20 +286,26 @@ class _GamePageState extends State<GamePage> with Settings {
           title: Text(
             'Game Over!',
             style: TextStyle(
-              color: isPlayerOneWin
-                  ? const Color.fromRGBO(3, 169, 241, 1)
-                  : const Color.fromRGBO(241, 131, 3, 1),
+              color: isgameOver
+                  ? Colors.white70
+                  : isPlayerOneWin
+                      ? const Color.fromRGBO(3, 169, 241, 1)
+                      : const Color.fromRGBO(241, 131, 3, 1),
             ),
           ),
           content: SingleChildScrollView(
             child: Text(
-              isPlayerOneWin
-                  ? '🎉🥇Player One win!🏆🏆🏆'
-                  : '🎉🥇Player Two win!🏆🏆🏆',
+              isgameOver
+                  ? '== Game Draw =='
+                  : isPlayerOneWin
+                      ? '🎉🥇Player One win!🏆🏆🏆'
+                      : '🎉🥇Player Two win!🏆🏆🏆',
               style: TextStyle(
-                color: isPlayerOneWin
-                    ? const Color.fromRGBO(3, 169, 241, 0.7)
-                    : const Color.fromRGBO(241, 131, 3, 0.7),
+                color: isgameOver
+                    ? Colors.white70
+                    : isPlayerOneWin
+                        ? const Color.fromRGBO(3, 169, 241, 0.7)
+                        : const Color.fromRGBO(241, 131, 3, 0.7),
               ),
             ),
           ),
@@ -304,6 +313,8 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
+                  isPlayerOneWin = false;
+                  isPlayerTwoWin = false;
                   Navigator.pop(context);
                   _showGameDetailDialog(context);
                 });
@@ -313,10 +324,15 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
+                  isPlayerOneWin = false;
+                  isPlayerTwoWin = false;
+                  isgameOver = false;
                   isGameStarted = true;
                   gameAreaOneHeight = 400;
                   gameAreaTwoHeight = 400;
                   _updateStatus();
+                  setDuration(newDuration: 20);
+                  _countingDown();
                   Navigator.pop(context);
                 });
               },
@@ -328,10 +344,14 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
+                  isPlayerOneWin = false;
+                  isPlayerTwoWin = false;
+                  isgameOver = false;
                   isGameStarted = false;
                   gameAreaOneHeight = 400;
                   gameAreaTwoHeight = 400;
                   _updateStatus();
+                  setDuration(newDuration: 20);
                   Navigator.pop(context);
                 });
               },
@@ -364,6 +384,9 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
+                  isPlayerOneWin = false;
+                  isPlayerTwoWin = false;
+                  isgameOver = false;
                   isGameStarted = true;
                   gameAreaOneHeight = 400;
                   gameAreaTwoHeight = 400;
@@ -376,6 +399,9 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
+                  isPlayerOneWin = false;
+                  isPlayerTwoWin = false;
+                  isgameOver = false;
                   isGameStarted = false;
                   gameAreaOneHeight = 400;
                   gameAreaTwoHeight = 400;
@@ -417,9 +443,9 @@ class _GamePageState extends State<GamePage> with Settings {
               ),
               Column(
                 children: [
-                  Text('👉🏼 playerOneNumTap taps'),
-                  Text('👉🏼 playerOneNumTap taps'),
-                  Text('👉🏼 playerOneNumTap taps'),
+                  Text('👉🏼 $playerOneNumTap taps'),
+                  Text('👉🏼 $playerOneNumTap taps'),
+                  Text('👉🏼 $playerOneNumTap taps'),
                 ],
               )
             ],
