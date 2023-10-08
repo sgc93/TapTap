@@ -19,7 +19,7 @@ class _GamePageState extends State<GamePage> with Settings {
 
   _countingDown() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (isPlayerOneWin || isPlayerTwoWin) {
+      if (isPlayerOneWin || isPlayerTwoWin || isGamePoused) {
         timer.cancel();
       } else if (duration > 0 && !isPlayerOneWin && !isPlayerTwoWin) {
         setState(() {
@@ -130,6 +130,7 @@ class _GamePageState extends State<GamePage> with Settings {
       onPressed: () {
         setState(() {
           if (!isGameStarted) {
+            isGamePoused = false;
             isGameStarted = true;
             _countingDown();
           }
