@@ -12,43 +12,22 @@ class GamePage extends StatefulWidget {
 }
 
 class _GamePageState extends State<GamePage> with Settings {
-  final double _statusConstant = 10 / 80;
-  final double _heightConstant = 80 / 10;
-
-  bool _isGameStarted = false;
-  bool _isGamePoused = false;
-  bool _isgameFinished = false;
-
-  double _gameAreaOneHeight = 400;
-  double _gameAreaTwoHeight = 400;
-
-  int _playerOneStatus = 50;
-  int _playerTwoStatus = 50;
-  int _duration = 30;
-
-  int _playerOneNumTap = 0;
-  int _playerTwoNumTap = 0;
-
-  bool _isPlayerOneWin = false;
-  bool _isPlayerTwoWin = false;
-
   @override
   void initState() {
     super.initState();
-    _duration = duration;
   }
 
   _countingDown() {
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_duration > 0) {
+      if (duration > 0) {
         setState(() {
-          _duration--;
+          duration--;
         });
-      } else if (_duration == 0) {
+      } else if (duration == 0) {
         setState(() {
-          _isGameStarted = false;
-          _isgameFinished = true;
-          _duration = duration;
+          isGameStarted = false;
+          isgameOver = true;
+          duration = 20;
         });
         timer.cancel();
       }
@@ -95,10 +74,10 @@ class _GamePageState extends State<GamePage> with Settings {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (_isGameStarted) {
-            _playerOneNumTap++;
-            _gameAreaTwoHeight -= _heightConstant * 4;
-            _gameAreaOneHeight += _heightConstant * 4;
+          if (isGameStarted) {
+            playerOneNumTap++;
+            gameAreaTwoHeight -= heightConstant * 4;
+            gameAreaOneHeight += heightConstant * 4;
             _updateStatus();
             _checkWin();
           }
@@ -112,7 +91,7 @@ class _GamePageState extends State<GamePage> with Settings {
             topRight: Radius.circular(20),
           ),
         ),
-        height: _gameAreaOneHeight,
+        height: gameAreaOneHeight,
       ),
     );
   }
@@ -121,10 +100,10 @@ class _GamePageState extends State<GamePage> with Settings {
     return GestureDetector(
       onTap: () {
         setState(() {
-          if (_isGameStarted) {
-            _playerTwoNumTap++;
-            _gameAreaOneHeight -= _heightConstant * 4;
-            _gameAreaTwoHeight += _heightConstant * 4;
+          if (isGameStarted) {
+            playerTwoNumTap++;
+            gameAreaOneHeight -= heightConstant * 4;
+            gameAreaTwoHeight += heightConstant * 4;
             _updateStatus();
             _checkWin();
           }
@@ -138,7 +117,7 @@ class _GamePageState extends State<GamePage> with Settings {
             bottomRight: Radius.circular(20),
           ),
         ),
-        height: _gameAreaTwoHeight,
+        height: gameAreaTwoHeight,
       ),
     );
   }
@@ -147,8 +126,8 @@ class _GamePageState extends State<GamePage> with Settings {
     return TextButton(
       onPressed: () {
         setState(() {
-          if (!_isGameStarted) {
-            _isGameStarted = true;
+          if (!isGameStarted) {
+            isGameStarted = true;
             _countingDown();
           }
         });
@@ -161,9 +140,9 @@ class _GamePageState extends State<GamePage> with Settings {
     return TextButton(
       onPressed: () {
         setState(() {
-          if (_isGameStarted) {
-            _isGameStarted = false;
-            _isGamePoused = true;
+          if (isGameStarted) {
+            isGameStarted = false;
+            isGamePoused = true;
           }
         });
       },
@@ -175,11 +154,11 @@ class _GamePageState extends State<GamePage> with Settings {
     return TextButton(
       onPressed: () {
         setState(() {
-          if (_isGameStarted || _isGamePoused) {
-            _isGameStarted = true;
-            _isGamePoused = false;
-            _gameAreaOneHeight = 400;
-            _gameAreaTwoHeight = 400;
+          if (isGameStarted || isGamePoused) {
+            isGameStarted = true;
+            isGamePoused = false;
+            gameAreaOneHeight = 400;
+            gameAreaTwoHeight = 400;
             _updateStatus();
           }
         });
@@ -234,7 +213,7 @@ class _GamePageState extends State<GamePage> with Settings {
     return _statusContainer(
       const Color.fromRGBO(241, 131, 3, 1),
       Text(
-        '$_playerTwoStatus%',
+        '$playerTwoStatus%',
         style: const TextStyle(
           color: Colors.white,
           fontSize: 20,
@@ -248,7 +227,7 @@ class _GamePageState extends State<GamePage> with Settings {
     return _statusContainer(
       Colors.grey[900],
       Text(
-        '$_duration',
+        '$duration',
         style: const TextStyle(
           color: Colors.white,
           fontSize: 20,
@@ -262,7 +241,7 @@ class _GamePageState extends State<GamePage> with Settings {
     return _statusContainer(
       const Color.fromRGBO(3, 169, 241, 1),
       Text(
-        '$_playerOneStatus%',
+        '$playerOneStatus%',
         style: const TextStyle(
           color: Colors.white,
           fontSize: 20,
@@ -273,19 +252,19 @@ class _GamePageState extends State<GamePage> with Settings {
   }
 
   void _updateStatus() {
-    _playerOneStatus = (_statusConstant * _gameAreaOneHeight).round();
-    _playerTwoStatus = 100 - _playerOneStatus;
+    playerOneStatus = (statusConstant * gameAreaOneHeight).round();
+    playerTwoStatus = 100 - playerOneStatus;
   }
 
   void _checkWin() {
-    if (_playerOneStatus == 98 || _playerTwoStatus == 98) {
-      if (_playerOneStatus == 98) {
-        _isPlayerOneWin = true;
-        _isPlayerTwoWin = false;
+    if (playerOneStatus == 98 || playerTwoStatus == 98) {
+      if (playerOneStatus == 98) {
+        isPlayerOneWin = true;
+        isPlayerTwoWin = false;
       } else {
         _updateStatus();
-        _isPlayerTwoWin = true;
-        _isPlayerOneWin = false;
+        isPlayerTwoWin = true;
+        isPlayerOneWin = false;
       }
       _showWinnerDialog(context);
     } else {
@@ -304,18 +283,18 @@ class _GamePageState extends State<GamePage> with Settings {
           title: Text(
             'Game Over!',
             style: TextStyle(
-              color: _isPlayerOneWin
+              color: isPlayerOneWin
                   ? const Color.fromRGBO(3, 169, 241, 1)
                   : const Color.fromRGBO(241, 131, 3, 1),
             ),
           ),
           content: SingleChildScrollView(
             child: Text(
-              _isPlayerOneWin
+              isPlayerOneWin
                   ? '🎉🥇Player One win!🏆🏆🏆'
                   : '🎉🥇Player Two win!🏆🏆🏆',
               style: TextStyle(
-                color: _isPlayerOneWin
+                color: isPlayerOneWin
                     ? const Color.fromRGBO(3, 169, 241, 0.7)
                     : const Color.fromRGBO(241, 131, 3, 0.7),
               ),
@@ -334,9 +313,9 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _isGameStarted = true;
-                  _gameAreaOneHeight = 400;
-                  _gameAreaTwoHeight = 400;
+                  isGameStarted = true;
+                  gameAreaOneHeight = 400;
+                  gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -349,9 +328,9 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _isGameStarted = false;
-                  _gameAreaOneHeight = 400;
-                  _gameAreaTwoHeight = 400;
+                  isGameStarted = false;
+                  gameAreaOneHeight = 400;
+                  gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -385,9 +364,9 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _isGameStarted = true;
-                  _gameAreaOneHeight = 400;
-                  _gameAreaTwoHeight = 400;
+                  isGameStarted = true;
+                  gameAreaOneHeight = 400;
+                  gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -397,9 +376,9 @@ class _GamePageState extends State<GamePage> with Settings {
             TextButton(
               onPressed: () {
                 setState(() {
-                  _isGameStarted = false;
-                  _gameAreaOneHeight = 400;
-                  _gameAreaTwoHeight = 400;
+                  isGameStarted = false;
+                  gameAreaOneHeight = 400;
+                  gameAreaTwoHeight = 400;
                   _updateStatus();
                   Navigator.pop(context);
                 });
@@ -438,9 +417,9 @@ class _GamePageState extends State<GamePage> with Settings {
               ),
               Column(
                 children: [
-                  Text('👉🏼 $_playerOneNumTap taps'),
-                  Text('👉🏼 $_playerOneNumTap taps'),
-                  Text('👉🏼 $_playerOneNumTap taps'),
+                  Text('👉🏼 playerOneNumTap taps'),
+                  Text('👉🏼 playerOneNumTap taps'),
+                  Text('👉🏼 playerOneNumTap taps'),
                 ],
               )
             ],
@@ -469,9 +448,9 @@ class _GamePageState extends State<GamePage> with Settings {
               ),
               Column(
                 children: [
-                  Text('👉🏼 $_playerTwoNumTap taps'),
-                  Text('👉🏼 $_playerTwoNumTap taps'),
-                  Text('👉🏼 $_playerTwoNumTap taps'),
+                  Text('👉🏼 $playerTwoNumTap taps'),
+                  Text('👉🏼 $playerTwoNumTap taps'),
+                  Text('👉🏼 $playerTwoNumTap taps'),
                 ],
               )
             ],
