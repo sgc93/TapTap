@@ -150,7 +150,7 @@ class _GamePageState extends State<GamePage> with Settings {
           }
         });
       },
-      child: _getText('POUSE'),
+      child: _getText('POSE'),
     );
   }
 
@@ -164,6 +164,8 @@ class _GamePageState extends State<GamePage> with Settings {
             gameAreaOneHeight = 400;
             gameAreaTwoHeight = 400;
             _updateStatus();
+            setDuration(newDuration: 20);
+            _countingDown();
           }
         });
       },
