@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:tab_tab_game/model/settings.dart';
 import 'package:tab_tab_game/widgets/container.dart';
 
 class GamePage extends StatefulWidget {
@@ -8,12 +11,13 @@ class GamePage extends StatefulWidget {
   State<GamePage> createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends State<GamePage> with Settings {
   final double _statusConstant = 10 / 80;
   final double _heightConstant = 80 / 10;
 
   bool _isGameStarted = false;
   bool _isGamePoused = false;
+  bool _isgameFinished = false;
 
   double _gameAreaOneHeight = 400;
   double _gameAreaTwoHeight = 400;
@@ -27,6 +31,29 @@ class _GamePageState extends State<GamePage> {
 
   bool _isPlayerOneWin = false;
   bool _isPlayerTwoWin = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _duration = duration;
+  }
+
+  _countingDown() {
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_duration > 0) {
+        setState(() {
+          _duration--;
+        });
+      } else if (_duration == 0) {
+        setState(() {
+          _isGameStarted = false;
+          _isgameFinished = true;
+          _duration = duration;
+        });
+        timer.cancel();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +149,7 @@ class _GamePageState extends State<GamePage> {
         setState(() {
           if (!_isGameStarted) {
             _isGameStarted = true;
+            _countingDown();
           }
         });
       },
