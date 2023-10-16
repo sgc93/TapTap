@@ -1,6 +1,6 @@
 mixin Settings {
   int level = 1;
-  int duration = 20;
+  int duration = 10;
 
   final double statusConstant = 10 / 80;
   final double heightConstant = 80 / 10;
@@ -8,6 +8,7 @@ mixin Settings {
   bool isGameStarted = false;
   bool isGamePoused = false;
   bool isgameOver = false;
+  bool isRestarted = false;
 
   double gameAreaOneHeight = 400;
   double gameAreaTwoHeight = 400;
