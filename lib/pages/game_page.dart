@@ -277,8 +277,6 @@ class _GamePageState extends State<GamePage> with Settings {
         isPlayerOneWin = false;
       }
       _showGameAlert(context);
-    } else {
-      print('Playing ... ');
     }
   }
 
