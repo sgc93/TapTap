@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tab_tab_game/model/setting_model.dart';
 import 'package:tab_tab_game/widgets/container.dart';
 
 class DurationCard extends StatefulWidget {
@@ -9,9 +11,10 @@ class DurationCard extends StatefulWidget {
 }
 
 class _DurationCardState extends State<DurationCard> {
-  int _duration = 7;
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<Settings>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -25,7 +28,7 @@ class _DurationCardState extends State<DurationCard> {
           textAlign: TextAlign.left,
         ),
         Text(
-          '$_duration',
+          settings.duration.toString(),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 100,
@@ -37,8 +40,8 @@ class _DurationCardState extends State<DurationCard> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  if (_duration > 1) {
-                    _duration--;
+                  if (settings.duration > 1) {
+                    settings.decreaseDuration();
                   }
                 });
               },
@@ -67,8 +70,8 @@ class _DurationCardState extends State<DurationCard> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  if (_duration < 60) {
-                    _duration++;
+                  if (settings.duration < 60) {
+                    settings.increaseDuration();
                   }
                 });
               },
