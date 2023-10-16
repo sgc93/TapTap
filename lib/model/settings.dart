@@ -1,4 +1,4 @@
-mixin Settings {
+mixin Setting {
   int level = 1;
   int duration = 10;
 
