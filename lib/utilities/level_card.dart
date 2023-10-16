@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tab_tab_game/model/setting_model.dart';
 import 'package:tab_tab_game/widgets/container.dart';
 
 class LevelCard extends StatefulWidget {
@@ -9,9 +11,10 @@ class LevelCard extends StatefulWidget {
 }
 
 class _LevelCardState extends State<LevelCard> {
-  int _level = 1;
   @override
   Widget build(BuildContext context) {
+    final settings = Provider.of<Settings>(context);
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -25,7 +28,7 @@ class _LevelCardState extends State<LevelCard> {
           textAlign: TextAlign.left,
         ),
         Text(
-          '$_level',
+          settings.level.toString(),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 100,
@@ -37,8 +40,8 @@ class _LevelCardState extends State<LevelCard> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  if (_level > 1) {
-                    _level--;
+                  if (settings.level > 1) {
+                    settings.decreaseLevel();
                   }
                 });
               },
@@ -60,8 +63,8 @@ class _LevelCardState extends State<LevelCard> {
             GestureDetector(
               onTap: () {
                 setState(() {
-                  if (_level < 4) {
-                    _level++;
+                  if (settings.level < 4) {
+                    settings.increaseLevel();
                   }
                 });
               },
